@@ -3,6 +3,10 @@
 var express = require('express');
 var posts = require('./data/posts.json');
 
+var postsLists = Object.keys(posts).map( (value) => {
+  return posts[value]
+});
+
 var app = express();
 
 app.use('/static/', express.static(__dirname + '/public'));
@@ -18,7 +22,7 @@ app.get('/blog/:title?', (req, res) => {
   var title = req.params.title;
   if (title === undefined) {
     res.status(503);
-    res.send('this page is under construction');
+    res.render('blog', {posts: postsLists});
   } else {
     var post = posts[title] || {};
     res.render('post', { post: post});
