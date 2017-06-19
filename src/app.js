@@ -12,6 +12,7 @@ app.get('/', (req, res) => {
 app.get('/blog/:title?', (req, res) => {
   var title = req.params.title;
   if (title === undefined) {
+    res.status(503);
     res.send('this page is under construction');
   } else {
     var post = posts[title];
