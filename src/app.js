@@ -15,6 +15,8 @@ app.set('view engine', 'pug');
 app.set('views', __dirname + '/templates');
 
 app.get('/', (req, res) => {
+  var path = req.path;
+  res.locals.path = path;
   res.render('index');
 });
 
