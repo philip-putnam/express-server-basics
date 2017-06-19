@@ -5,8 +5,11 @@ var posts = require('./data/posts.json');
 
 var app = express();
 
+app.set('view engine', 'pug');
+app.set('views', __dirname + '/templates');
+
 app.get('/', (req, res) => {
-  res.send("<h1>I love learning how to code!</h1>")
+  res.render('index');
 });
 
 app.get('/blog/:title?', (req, res) => {
@@ -15,8 +18,8 @@ app.get('/blog/:title?', (req, res) => {
     res.status(503);
     res.send('this page is under construction');
   } else {
-    var post = posts[title];
-    res.send(post);
+    var post = posts[title] || {};
+    res.render('post', { post: post});
   }
 });
 
