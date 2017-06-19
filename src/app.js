@@ -9,10 +9,14 @@ app.get('/', (req, res) => {
   res.send("<h1>I love learning how to code!</h1>")
 });
 
-app.get('/blog/:title', (req, res) => {
+app.get('/blog/:title?', (req, res) => {
   var title = req.params.title;
-  var post = posts[title];
-  res.send(post);
+  if (title === undefined) {
+    res.send('this page is under construction');
+  } else {
+    var post = posts[title];
+    res.send(post);
+  }
 });
 
 app.listen(3000, () => {
